@@ -572,8 +572,8 @@ class Nadam(Optimizer):
                   'schedule_decay': self.schedule_decay}
         base_config = super(Nadam, self).get_config()
         return dict(list(base_config.items()) + list(config.items()))
-    
-    
+
+
 class FTML(Optimizer):
     """FTML optimizer.
     # Arguments
@@ -585,7 +585,7 @@ class FTML(Optimizer):
     # References
         - [FTML - Follow the Moving Leader in Deep Learning](http://www.cse.ust.hk/~szhengac/papers/icml17.pdf)
     """
-    
+
     def __init__(self, lr=0.0025, beta_1=0.6, beta_2=0.999,
                  epsilon=1e-8, decay=0., **kwargs):
         super(FTML, self).__init__(**kwargs)
@@ -617,7 +617,7 @@ class FTML(Optimizer):
 
         for p, g, z, v, d in zip(params, grads, zs, vs, ds):
             v_t = self.beta_2 * v + ((1. - self.beta_2) * (1. - self.beta_1) / (1. - K.pow(self.beta_1, t))) * K.square(g)
-            d_t = (K.sqrt(v_t/(1. - K.pow(self.beta_2, t))) + self.epsilon) / lr_t
+            d_t = (K.sqrt(v_t / (1. - K.pow(self.beta_2, t))) + self.epsilon) / lr_t
             sigma_t = d_t - self.beta_1 * d
             z_t = self.beta_1 * z + (1. - self.beta_1) * g - sigma_t * p
 
@@ -643,7 +643,7 @@ class FTML(Optimizer):
                   'epsilon': self.epsilon}
         base_config = super(FTML, self).get_config()
         return dict(list(base_config.items()) + list(config.items()))
-    
+
 
 class TFOptimizer(Optimizer):
     """Wrapper class for native TensorFlow optimizers.
